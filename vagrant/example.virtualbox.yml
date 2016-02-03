@@ -1,0 +1,4 @@
+---
+box: "ubuntu/trusty64"
+memory: 2048
+cpus: 2

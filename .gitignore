@@ -1,0 +1,8 @@
+*~
+.#*
+cache.properties
+.DS_Store
+.vagrant
+vagrant/ports.yml
+vagrant/virtualbox.yml
+sites

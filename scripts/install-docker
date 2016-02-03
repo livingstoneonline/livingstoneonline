@@ -1,0 +1,13 @@
+#!/bin/bash
+echo "Searching for the IP of the Vagrant Box"
+IP=$(/usr/local/bin/VBoxManage guestproperty enumerate default | grep '/VirtualBox/GuestInfo/Net/1/V4/IP' | sed -n 's/^.*value: \([0-9\.]*\),.*$/\1/p')
+
+echo "Installing Docker on Vagrant Box: $IP"
+/usr/local/bin/docker-machine create -d generic \
+               --generic-ssh-user vagrant \
+               --generic-ssh-key .vagrant/machines/default/virtualbox/private_key \
+               --generic-ssh-port 22 \
+               --generic-ip-address $IP \
+               --engine-install-url "https://get.docker.com" \
+               default
+exit 0

@@ -1,0 +1,9 @@
+#!/bin/bash
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+automator $DIR/close_kitematic.workflow
+if VBoxManage showvminfo default | grep boot2docker.iso > /dev/null ; then
+    VBoxManage controlvm default poweroff
+    VBoxManage unregistervm default --delete
+fi
+exit 0
+osascript -e "ignoring application responses" -e "tell application \"Kitematic (Beta)\" to quit with saving" -e "end ignoring"

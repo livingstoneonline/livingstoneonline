@@ -1,0 +1,2 @@
+#!/bin/sh
+unison socket://localhost:5000//var/www/localhost/htdocs/sites sites -auto -batch

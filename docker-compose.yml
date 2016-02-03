@@ -1,0 +1,25 @@
+mariadb:
+  image: livingstoneonline/mariadb
+  container_name: mariadb
+  environment:
+    MYSQL_ROOT_PASSWORD: 4KBPd3wsOXCGlToFAwAFyNjogsrp5V2N
+
+tomcat:
+  image: livingstoneonline/fedora-sample-data
+  container_name: tomcat
+  environment:
+    FEDORA_ADMIN_PASSWORD: g8iR4T6PGDR7CAshNj6KWNXlH_lZVzlv
+  ports:
+    - "8080:8080"
+  links:
+    - mariadb:mysql
+
+drupal:
+  image: livingstoneonline/livingstone
+  container_name: drupal
+  ports:
+    - "80:80"
+    - "5000:5000"
+  links:
+    - mariadb:mysql
+    - tomcat:fedora

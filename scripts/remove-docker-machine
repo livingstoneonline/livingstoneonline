@@ -1,0 +1,5 @@
+#!/bin/bash
+
+echo "Removing reference to Docker Machine"
+/usr/local/bin/docker-machine rm -y default
+exit 0
