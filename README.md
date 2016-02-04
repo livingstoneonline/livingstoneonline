@@ -24,8 +24,8 @@ deployed via Docker.
 
 ## Table of Contents
 
-* [Setup Development Environment!](docs/development_enviroment.md)
-* [Project Structure!](docs/project_structure.md)
-* [Automated Build System!](docs/automated_build_system.md)
-* [Altering the Environment!](docs/altering_enviroment.md)
-* [Development Work-flow!](docs/development_workflow.md)
+* [Setup Development Environment](docs/development_enviroment.md)
+* [Project Structure](docs/project_structure.md)
+* [Automated Build System](docs/automated_build_system.md)
+* [Altering the Environment](docs/altering_enviroment.md)
+* [Development Work-flow](docs/development_workflow.md)

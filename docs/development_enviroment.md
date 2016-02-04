@@ -5,6 +5,7 @@
 * [Introduction](#introduction)
 * [Requirements](#requirements)
 * [Installation](#installation)
+  * [Git and Github](#installation-git-and-github)
   * [Docker and Virtualbox](#installation--docker-and-virtualbox)
   * [Vagrant and Plugins](#installation--vagrant-and-plugins)
   * [Configuring the Environment](#configuring-environment--vagrant-providers-)
@@ -13,15 +14,16 @@
 * [Starting Docker](#starting-docker)
 * [Stopping Docker](#stopping-docker)
 * [Updating Docker](#updating-docker)
-* [Sharing your Environment](#sharing-your-enviroment)
+* [Sharing your Environment](#sharing-your-environment)
 * [Reference](#reference)
 
 ## Introduction
 
-This is a short guide on how to setup your local development environment.
+This is a short guide on how to setup your local development environment on OSX.
 
 ## Requirements
 
+* Git
 * Vagrant 1.8.1
  * vagrant-triggers plugin
  * vagrant-docker-compose plugin
@@ -31,6 +33,56 @@ This is a short guide on how to setup your local development environment.
 ## Installation
 
 This covers how to install the development environment on OSX.
+
+### Installation: Git and Github
+
+Git is a distributed source control system, we use it to track all the system
+configuration as well as all the source code used to build
+http://livingstoneonline.org. A Git Repository contains all the latest code, but
+also a history of every change made to the code, along with comments about the
+changes made over time.
+
+Github is a website which hosts Git Repositories, as well as provides a number
+of additional features. Such as issue tracking, wiki's and integration into
+other services such as Docker Hub.
+
+There many ways to install Git, and many interfaces to use Git. As such more
+advanced usage is beyond the scope of this document, but for those who are
+interested in it I recommend the book [Pro Git](https://git-scm.com/book/en/v2)
+which is _free_ and covers Git and it's usage well.
+
+Here we'll only describe how to install the Desktop GUI version of Github for
+OSX.
+
+https://desktop.github.com/
+
+Simply download the application provided on the page above, and extract it from
+the Zip file (this should be automatic on OSX when you click on the downloaded
+file). Then copy the application *Github Desktop.app* to you Applications folder.
+
+Open the application and follow the instructions it provides. Make sure you also
+install the command line tools.
+
+![Github Install Tools](docs/images/github-install-tools.png)
+
+Once the application is installed you can follow the tutorial it provides if
+your interested.
+
+Now clone this repository to your computer, following the steps shown below.
+
+![Clone Repository](docs/images/github-clone.png)
+
+It will then prompt you to choose a location to clone this repository, feel free
+to choose wherever you prefer. The Git repository will be downloaded to your
+selected location.
+
+You now have a local copy of this repository. As time goes on changes will be
+made to this repository, to get the latest changes simply click on the *sync* button as is shown below.
+
+![Update Repository](docs/images/github-sync.png)
+
+You should *sync* at least once a day.
+
 
 ### Installation: Docker and Virtualbox
 
@@ -56,7 +108,7 @@ $ vagrant plugin install vagrant-docker-compose
 ```
 
 If you skip this step they will be installed the first time you attempt to run
-_vagrant up_, but you'll have to run the command twice. 
+_vagrant up_, but you'll have to run the command twice.
 
 ### Configuring Environment (Vagrant Providers)
 
@@ -86,7 +138,7 @@ Ports mapped from the Virtualbox VM (aka 'guest') to your physical machine (aka
 
 *N.B.* You shouldn't need to change any of the guest ports, and if you do, you
  must also update the relevant ports in the docker-compose.yml file as well.
- 
+
 #### virtualbox.yml
 
 Customize the amount of resources you give to the guest VM:
@@ -107,7 +159,7 @@ $ vagrant up
 ```
 
 This will trigger the download of an VM image, and provision the image using
-docker-machine, and docker-compose. 
+docker-machine, and docker-compose.
 
 After this you can now export the docker environment into your shell:
 
@@ -129,7 +181,7 @@ script _~/.bashrc_ or _~/.zshrc_, etc, so you don't need to type it ever again.
 ## Destroying the Environment
 
 Be *very careful* that you actually want to *destroy* the environment, before
-executing the command below. 
+executing the command below.
 
 As destroying the environment means you'll have to *re-download absolutely
 everything*.
@@ -158,7 +210,7 @@ Once the box is downloaded and setup you can access the site at:
 [http://localhost:8000](http://localhost:8000)
 
 
-## Stopping Docker 
+## Stopping Docker
 
 When you no longer want to run Docker simply press *Ctrl-C* at the terminal where
 you ran the _vagrant up_ command.
@@ -190,7 +242,7 @@ $ docker-compose restart
 
 ## Sharing your Environment
 
-Since this system is build un-top of vagrant, we can also share a public URL to
+Since this system is build on top of vagrant, we can also share a public URL to
 our local Development box.
 
 You'll first have to setup and account with
@@ -229,14 +281,14 @@ $ port install fswatcher
 ```
 
 The basic concept is _unison_ provides bidirectional syncing of files, and
-_fswatcher_ whates the file system for changes, triggering _unision_ to sync
-between the enviroment and your physical machine when ever changes occur.
+_fswatcher_ watches the file system for changes, triggering _unison_ to sync
+between the environment and your physical machine when ever changes occur.
 
 There are two scripts provided with this repository. They don't take any
 arguments so you can run them like any other base script.
 
 * sync: Runs the bidirectional sync just once.
-* watch: Runs the file system watcher to automcatically sync files.
+* watch: Runs the file system watcher to automatically sync files.
 
 They'll sync the *$DRUPAL_ROOT/sites* folder to *sites* in this directory.
 
