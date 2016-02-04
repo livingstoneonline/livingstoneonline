@@ -63,14 +63,14 @@ file). Then copy the application *Github Desktop.app* to you Applications folder
 Open the application and follow the instructions it provides. Make sure you also
 install the command line tools.
 
-![Github Install Tools](docs/images/github-install-tools.png)
+![Github Install Tools](images/github-install-tools.png)
 
 Once the application is installed you can follow the tutorial it provides if
 your interested.
 
 Now clone this repository to your computer, following the steps shown below.
 
-![Clone Repository](docs/images/github-clone.png)
+![Clone Repository](images/github-clone.png)
 
 It will then prompt you to choose a location to clone this repository, feel free
 to choose wherever you prefer. The Git repository will be downloaded to your
@@ -79,7 +79,7 @@ selected location.
 You now have a local copy of this repository. As time goes on changes will be
 made to this repository, to get the latest changes simply click on the *sync* button as is shown below.
 
-![Update Repository](docs/images/github-sync.png)
+![Update Repository](images/github-sync.png)
 
 You should *sync* at least once a day.
 
@@ -175,8 +175,8 @@ script _~/.bashrc_ or _~/.zshrc_, etc, so you don't need to type it ever again.
  Or you could launch the [Kitematic]() GUI or use the GUI based terminal
  launcher.
 
-![Docker Folder](docs/images/docker-folder.png)
-![Docker Apps](docs/images/launch-terminal.png)
+![Docker Folder](images/docker-folder.png)
+![Docker Apps](images/launch-terminal.png)
 
 ## Destroying the Environment
 
