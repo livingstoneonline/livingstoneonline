@@ -63,6 +63,10 @@ file). Then copy the application *Github Desktop.app* to you Applications folder
 Open the application and follow the instructions it provides. Make sure you also
 install the command line tools.
 
+**N.B.** If you *do not* have the option to install the command line tools, do
+  not worry they are already installed. In such a case please move onto the next
+  step.
+
 ![Github Install Tools](images/github-install-tools.png)
 
 Once the application is installed you can follow the tutorial it provides if
@@ -83,6 +87,14 @@ made to this repository, to get the latest changes simply click on the *sync* bu
 
 You should *sync* at least once a day.
 
+**N.B.** In all further instructions with the command:
+
+```
+cd ~/path/to/project/
+```
+
+Indicates you should ```cd``` to the location where you have cloned the
+repository above.
 
 ### Installation: Docker and Virtualbox
 
@@ -103,8 +115,8 @@ Once you have Vagrant installed, you can now install the required plugins using
 the command line. Please open your terminal and enter the following.
 
 ```bash
-$ vagrant plugin install vagrant-triggers
-$ vagrant plugin install vagrant-docker-compose
+vagrant plugin install vagrant-triggers
+vagrant plugin install vagrant-docker-compose
 ```
 
 If you skip this step they will be installed the first time you attempt to run
@@ -119,13 +131,16 @@ To setup each feature, simply copy the _example.FEATURE.yml_ file to
 _FEATURE.yml_. For example with the _Ports_ settings.
 
 ```bash
-$ cd ~/path/to/project/
-$ cp ./vagrant/example.ports.yml ./vagrant/ports.yml
+cd ~/path/to/project/
+cp ./vagrant/example.ports.yml ./vagrant/ports.yml
 ```
 
 Once you have done that you can provide your custom settings for each feature,
-by editing the newly created file. The available settings in each is described
-below.
+by editing the newly created file. Although the default settings should suffice
+for most users and you should now be able to skip to the next section "Launching
+the Environment".
+
+The available settings for each feature is described below.
 
 #### ports.yml
 
@@ -136,7 +151,7 @@ Ports mapped from the Virtualbox VM (aka 'guest') to your physical machine (aka
   * `guest` - The port on the guest to map from.
   * `host` - The port on the guest to map to.
 
-*N.B.* You shouldn't need to change any of the guest ports, and if you do, you
+**N.B.** You shouldn't need to change any of the guest ports, and if you do, you
  must also update the relevant ports in the docker-compose.yml file as well.
 
 #### virtualbox.yml
@@ -147,6 +162,7 @@ Customize the amount of resources you give to the guest VM:
 * `cpus` - The number of virtual CPU's to allocate to the VM.
 * `memory` - The number of MB to allocate for RAM.
 
+The defaults should be sufficient for most users. 
 
 ## Launching the Environment
 
@@ -154,29 +170,46 @@ To run the *Development* environment locally simple open the terminal, and
 navigate to the project folder (_in which this repository resides_).
 
 ```bash
-$ cd ~/path/to/project/
-$ vagrant up
+cd ~/path/to/project/
+vagrant up
 ```
 
 This will trigger the download of an VM image, and provision the image using
-docker-machine, and docker-compose.
+docker-machine, and docker-compose. This may take upwards of 30 minutes to 2
+hours depending on your internet connection. Subsequent calls to this command
+will be much faster as the assets will have been downloaded.
+
+At this point you should have a fully running server, that you can access here:
+
+[http://localhost:8000](http://localhost:8000)
+
+If you wish to update it or if you turned off your computer and the server is
+down you can simply run vagrant up again. Like so:
+
+```bash
+cd ~/path/to/project/
+vagrant up
+```
+
+If you are not doing any development and are simply testing the environment your
+are done and do not need to proceed to the next step.
+
+**N.B.** You should run ```vagrant up``` once a day. So you have the latest
+  development work.
+
+### Interacting with Docker
 
 After this you can now export the docker environment into your shell:
 
 ```bash
-$ eval $(docker-machine env default)
+eval $(docker-machine env livingstone)
 ```
 
 This is required so that Docker and Docker Compose know which machine to
 communicate with. You can add this line at the bottom of your shell start-up
 script _~/.bashrc_ or _~/.zshrc_, etc, so you don't need to type it ever again.
 
-*N.B.* If you ever start a new terminal / shell you'll have to enter that again.
- Or you could launch the [Kitematic]() GUI or use the GUI based terminal
- launcher.
-
-![Docker Folder](images/docker-folder.png)
-![Docker Apps](images/launch-terminal.png)
+**N.B.** If you ever start a new terminal / shell you'll have to enter that again.
 
 ## Destroying the Environment
 
@@ -187,22 +220,23 @@ As destroying the environment means you'll have to *re-download absolutely
 everything*.
 
 ```bash
-$ cd ~/path/to/project/
-$ vagrant destroy
+cd ~/path/to/project/
+vagrant destroy
 ```
 
 ## Starting Docker
 
 Now that we can communicate with Docker, we can run Docker Compose to download
-the Docker Containers and run them in our VM:
+the Docker Containers and run them in our VM (remember to first follow the
+directions in [Interacting with Docker](#interacting-with-docker)):
 
 ```bash
-$ cd ~/path/to/project/
-$ docker-compose up
+cd ~/path/to/project/
+docker-compose up
 ```
 
 This can take a *very long time* depending on your internet speed. As it will be
-downloading roughly 1.5 GB of data. Though once this is setup subsequent updates
+downloading roughly 2.5 GB of data. Though once this is setup subsequent updates
 are speedy.
 
 Once the box is downloaded and setup you can access the site at:
@@ -218,8 +252,8 @@ you ran the _vagrant up_ command.
 Or you can run the stop command:
 
 ```bash
-$ cd ~/path/to/project/
-$ docker-compose stop
+cd ~/path/to/project/
+docker-compose stop
 ```
 
 ## Updating Docker
@@ -227,8 +261,8 @@ $ docker-compose stop
 To pull down the latest Docker images, run this command:
 
 ```bash
-$ cd ~/path/to/project/
-$ docker-compose pull
+cd ~/path/to/project/
+docker-compose pull
 ```
 
 This doesn't automatically deploy the new images, just downloads them.
@@ -236,8 +270,8 @@ This doesn't automatically deploy the new images, just downloads them.
 If you want to run the latest images you must restart the containers:
 
 ```bash
-$ cd ~/path/to/project/
-$ docker-compose restart
+cd ~/path/to/project/
+docker-compose restart
 ```
 
 ## Sharing your Environment
@@ -269,15 +303,15 @@ These tools are provided by both [Macports](https://www.macports.org/) and
 ### Brew
 
 ```base
-$ brew install unison
-$ brew install fswatcher
+brew install unison
+brew install fswatcher
 ```
 
 ### Macports
 
 ```
-$ port install unison
-$ port install fswatcher
+port install unison
+port install fswatcher
 ```
 
 The basic concept is _unison_ provides bidirectional syncing of files, and

@@ -1,0 +1,6 @@
+#!/bin/bash
+echo "Docker Compose Up"
+eval $(docker-machine env livingstone)
+docker-compose pull
+docker-compose up
+exit 0

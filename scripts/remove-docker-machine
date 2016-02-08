@@ -1,5 +1,4 @@
 #!/bin/bash
-
 echo "Removing reference to Docker Machine"
-/usr/local/bin/docker-machine rm -y default
+/usr/local/bin/docker-machine rm -y livingstone
 exit 0

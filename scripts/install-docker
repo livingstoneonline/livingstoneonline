@@ -1,13 +1,24 @@
 #!/bin/bash
+ROOT="$( cd "$( dirname "${BASH_SOURCE[0]}" )"/.. && pwd )"
+cd $ROOT
+readonly config=$(vagrant ssh-config)
 echo "Searching for the IP of the Vagrant Box"
 IP=$(/usr/local/bin/VBoxManage guestproperty enumerate default | grep '/VirtualBox/GuestInfo/Net/1/V4/IP' | sed -n 's/^.*value: \([0-9\.]*\),.*$/\1/p')
+readonly host=$(echo $config | egrep -o 'HostName ([0-9\.]*)' | sed 's/HostName //')
+readonly user=$(echo $config | egrep -o 'User ([-_a-zA-Z0-9]*)' | sed 's/User //')
+readonly port=$(echo $config | egrep -o 'Port ([0-9]*)' | sed 's/Port //')
+readonly identity=$(echo $config | egrep -o 'IdentityFile "(.*)"' | sed 's/^IdentityFile "\(.*\)"$/\1/')
 
-echo "Installing Docker on Vagrant Box: $IP"
+echo "Installing Docker on Vagrant Box"
+echo "Host: $host"
+echo "User: $user"
+echo "Port: $port"
+echo "Identity: $identity"
 /usr/local/bin/docker-machine create -d generic \
-               --generic-ssh-user vagrant \
-               --generic-ssh-key .vagrant/machines/default/virtualbox/private_key \
-               --generic-ssh-port 22 \
-               --generic-ip-address $IP \
+               --generic-ssh-user $user \
+               --generic-ssh-key $identity \
+               --generic-ssh-port $port \
+               --generic-ip-address $host \
                --engine-install-url "https://get.docker.com" \
-               default
+               livingstone
 exit 0

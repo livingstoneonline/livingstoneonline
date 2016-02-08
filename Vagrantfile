@@ -43,19 +43,17 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do | config |
   config.vm.network "private_network", type: "dhcp"
   ports = load_settings 'ports'
   map_ports config, ports
+  config.vm.provision :docker
   config.vm.provision :docker_compose
   config.vm.provider :virtualbox do | provider |
-    provider.name = "default"
+    provider.name = "livingstone"
     provider.cpus = settings['cpus']
     provider.memory = settings['memory']
   end
 
-  config.trigger.before :up do
-    run "./scripts/remove-kitematic-vm"
-  end
-
   config.trigger.after :up do
     run "./scripts/install-docker"
+    run "./scripts/docker-compose-up"
   end
 
   config.trigger.after :destroy do

@@ -22,6 +22,7 @@ Both the _stage_ and _production_ environments are hosted at
 As it currently stands, both of these boxes run *RHEL 7* and the software is
 deployed via Docker.
 
+
 ## Table of Contents
 
 * [Setup Development Environment](docs/development_enviroment.md)
