@@ -180,11 +180,17 @@ are done and do not need to proceed to the next step.
 Updating the environment is exactly the same as
 [Launching the Environment](#launching-the-environment).
 
+**N.B.** You **do not** have to re-install Github Desktop or Docker Tools or 
+  Vagrant to update the enviroment.
+
 ## Restarting the Environment
 
 If you shut down your computer, you'll need to restart the environment.
 Fortunately this is exactly the same steps as
 [Launching the Environment](#launching-the-environment).
+
+**N.B.** You **do not** have to re-install Github Desktop or Docker Tools or 
+  Vagrant to update the enviroment.
 
 ## Destroying the Environment
 
@@ -204,6 +210,13 @@ Once at the terminal copy and paste the following command:
 ```bash
 vagrant destroy
 ```
+
+If you would like to recreate the environment after destroying it, just follow 
+the instructions in the [Launching the Environment](#launching-the-environment)
+section again.
+
+**N.B.** You **do not** have to re-install Github Desktop or Docker Tools or 
+  Vagrant to update the enviroment.
 
 ## Notes for Developers
 
