@@ -107,6 +107,10 @@ button as is shown below.
 
 **You should _sync_ at least once a day.**
 
+**N.B.** If you have already installed Docker and Virtualbox below you **do not** have to 
+re-install Github Desktop or Docker Tools or Vagrant to update the enviroment, from
+now on just start from [Launching the Environment](#launching-the-environment)
+
 ### Installation: Docker and Virtualbox
 
 To install both Docker and Virtualbox on OSX please
@@ -122,6 +126,10 @@ relevant download for your operating system from the
 Once downloaded run the installer and follow the instructions it provides.
 
 You now have all the dependencies needed to start.
+
+**N.B.** Now that you have all the dependancies intstalled you **do not** have to 
+re-install Github Desktop or Docker Tools or Vagrant to update the enviroment, from
+now on just start from [Launching the Environment](#launching-the-environment)
 
 ## Launching the Environment
 
