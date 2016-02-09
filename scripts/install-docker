@@ -3,10 +3,10 @@ ROOT="$( cd "$( dirname "${BASH_SOURCE[0]}" )"/.. && pwd )"
 cd $ROOT
 readonly config=$(vagrant ssh-config)
 echo "Searching for the IP of the Vagrant Box"
-IP=$(/usr/local/bin/VBoxManage guestproperty enumerate default | grep '/VirtualBox/GuestInfo/Net/1/V4/IP' | sed -n 's/^.*value: \([0-9\.]*\),.*$/\1/p')
-readonly host=$(echo $config | egrep -o 'HostName ([0-9\.]*)' | sed 's/HostName //')
+IP=$(/usr/local/bin/VBoxManage guestproperty enumerate livingstone | grep '/VirtualBox/GuestInfo/Net/1/V4/IP' | sed -n 's/^.*value: \([0-9\.]*\),.*$/\1/p')
+readonly host=$IP
 readonly user=$(echo $config | egrep -o 'User ([-_a-zA-Z0-9]*)' | sed 's/User //')
-readonly port=$(echo $config | egrep -o 'Port ([0-9]*)' | sed 's/Port //')
+readonly port=22
 readonly identity=$(echo $config | egrep -o 'IdentityFile "(.*)"' | sed 's/^IdentityFile "\(.*\)"$/\1/')
 
 echo "Installing Docker on Vagrant Box"
