@@ -34,7 +34,17 @@ This is a short guide on how to setup your local development environment on OSX.
 
 This covers how to install the development environment on OSX.
 
-### Installation: Git and Github
+### Register for Github Account
+
+Before installing Github Desktop and this projects other dependencies you must
+first register for a Github account.
+
+Please visit https://github.com/ and create a new account if you do not already
+have one.
+
+![Create an Account](images/github-signup.png)
+
+### Installation: Github Desktop
 
 Git is a distributed source control system, we use it to track all the system
 configuration as well as all the source code used to build
@@ -47,9 +57,9 @@ of additional features. Such as issue tracking, wiki's and integration into
 other services such as Docker Hub.
 
 There many ways to install Git, and many interfaces to use Git. As such more
-advanced usage is beyond the scope of this document, but for those who are
-interested in it I recommend the book [Pro Git](https://git-scm.com/book/en/v2)
-which is _free_ and covers Git and it's usage well.
+advanced usage is beyond the scope of this document. For those who are
+interested in learning more about Git, I recommend the _free_ e-book
+[Pro Git](https://git-scm.com/book/en/v2).
 
 Here we'll only describe how to install the Desktop GUI version of Github for
 OSX.
@@ -72,7 +82,14 @@ install the command line tools.
 Once the application is installed you can follow the tutorial it provides if
 your interested.
 
-Now clone this repository to your computer, following the steps shown below.
+### Download this Repository
+
+Now we need to clone this repository to your computer. Please follow the steps
+shown below.
+
+1. Visit the Repository
+   [https://github.com/livingstoneonline/livingstoneonline](https://github.com/livingstoneonline/livingstoneonline)
+2. Click on the Clone to desktop button shown below.
 
 ![Clone Repository](images/github-clone.png)
 
@@ -80,36 +97,117 @@ It will then prompt you to choose a location to clone this repository, feel free
 to choose wherever you prefer. The Git repository will be downloaded to your
 selected location.
 
+### Update this Repository
+
 You now have a local copy of this repository. As time goes on changes will be
-made to this repository, to get the latest changes simply click on the *sync* button as is shown below.
+made to this repository, to get the latest changes simply click on the *sync*
+button as is shown below.
 
 ![Update Repository](images/github-sync.png)
 
-You should *sync* at least once a day.
-
-**N.B.** In all further instructions with the command:
-
-```
-cd ~/path/to/project/
-```
-
-Indicates you should ```cd``` to the location where you have cloned the
-repository above.
+**You should _sync_ at least once a day.**
 
 ### Installation: Docker and Virtualbox
 
-To install both [Docker 1.9.1](https://docs.docker.com/) and
-[Virtualbox](https://www.virtualbox.org/wiki/Documentation) on OSX please
+To install both Docker and Virtualbox on OSX please
 download [Docker Toolbox](https://www.docker.com/docker-toolbox) and follow the
 [instructions provided](https://docs.docker.com/mac/step_one/).
 
 ### Installation: Vagrant & plugins
 
-To install [Vagrant](https://www.vagrantup.com/docs/), please select the
+To install Vagrant, please select the
 relevant download for your operating system from the
 [downloads page](https://www.vagrantup.com/downloads.html).
 
 Once downloaded run the installer and follow the instructions it provides.
+
+You now have all the dependencies needed to start.
+
+## Launching the Environment
+
+Open the Github Desktop application, and
+[Update this Repository](#update-this-repository) as before.
+
+Then follow the instructions below to open the terminal.
+
+![Open terminal](images/open-terminal.png)
+
+Once at the terminal copy and paste the following command:
+
+```bash
+vagrant up
+```
+
+The first time this command is run it may need to install some additional
+plugins which are documented below. If this is the case it will print a message
+like so:
+
+> Installing the 'vagrant-triggers' plugin. This can take a few minutes...
+
+> Installed the plugin 'vagrant-triggers (0.5.2)'!
+
+> Installing the 'vagrant-docker-compose' plugin. This can take a few minutes...
+
+> Installed the plugin 'vagrant-docker-compose (0.0.9)'!
+
+> Dependencies installed, please try the command again. 
+
+If that is displayed please copy and paste the command again.
+
+```bash
+vagrant up
+```
+
+This will trigger the download of an VM image, and provision the image using
+docker-machine, and docker-compose. This may take upwards of 30 minutes to 2
+hours depending on your internet connection. Subsequent calls to this command
+will be much faster as the assets will have been downloaded.
+
+**When the process is finished it will stop out-putting text.**
+
+At this point you should have a fully running server, that you can access here:
+
+[http://localhost:8000](http://localhost:8000)
+
+If you are not doing any development and are simply testing the environment your
+are done and do not need to proceed to the next step.
+
+**N.B.** You should run ```vagrant up``` once a day. So you have the latest
+  development work.
+
+## Updating the Environment
+
+Updating the environment is exactly the same as
+[Launching the Environment](#launching-the-environment).
+
+## Restarting the Environment
+
+If you shut down your computer, you'll need to restart the environment.
+Fortunately this is exactly the same steps as
+[Launching the Environment](#launching-the-environment).
+
+## Destroying the Environment
+
+Be *very careful* that you actually want to *destroy* the environment, before
+executing the command below.
+
+As destroying the environment means you'll have to *re-download absolutely
+everything*.
+
+Open the Github Desktop application and then follow the instructions below to
+open the terminal.
+
+![Open terminal](images/open-terminal.png)
+
+Once at the terminal copy and paste the following command:
+
+```bash
+vagrant destroy
+```
+
+## Notes for Developers
+
+### Configuring Vagrant
 
 Once you have Vagrant installed, you can now install the required plugins using
 the command line. Please open your terminal and enter the following.
@@ -124,21 +222,23 @@ _vagrant up_, but you'll have to run the command twice.
 
 ### Configuring Environment (Vagrant Providers)
 
-Before running the environment on _Virtualbox_ you must first configure it. All
-the configuration files are located in the [vagrant](vagrant) folder.
+The _Virtualbox_ server's ports, cpu, and memory usage can be configured via two
+YAML files. All the configuration files are located in the [vagrant](../vagrant)
+folder.
 
 To setup each feature, simply copy the _example.FEATURE.yml_ file to
-_FEATURE.yml_. For example with the _Ports_ settings.
+_FEATURE.yml_.
+
+Like so:
 
 ```bash
-cd ~/path/to/project/
 cp ./vagrant/example.ports.yml ./vagrant/ports.yml
+cp ./vagrant/example.virtualbox.yml ./vagrant/virtualbox.yml
 ```
 
 Once you have done that you can provide your custom settings for each feature,
-by editing the newly created file. Although the default settings should suffice
-for most users and you should now be able to skip to the next section "Launching
-the Environment".
+by editing the newly created files. Although the default settings should suffice
+for most users.
 
 The available settings for each feature is described below.
 
@@ -153,6 +253,8 @@ Ports mapped from the Virtualbox VM (aka 'guest') to your physical machine (aka
 
 **N.B.** You shouldn't need to change any of the guest ports, and if you do, you
  must also update the relevant ports in the docker-compose.yml file as well.
+ Though you'll likely have to change the host port if it conflicts with another
+ one of your Virtualbox VM's.
 
 #### virtualbox.yml
 
@@ -163,39 +265,6 @@ Customize the amount of resources you give to the guest VM:
 * `memory` - The number of MB to allocate for RAM.
 
 The defaults should be sufficient for most users. 
-
-## Launching the Environment
-
-To run the *Development* environment locally simple open the terminal, and
-navigate to the project folder (_in which this repository resides_).
-
-```bash
-cd ~/path/to/project/
-vagrant up
-```
-
-This will trigger the download of an VM image, and provision the image using
-docker-machine, and docker-compose. This may take upwards of 30 minutes to 2
-hours depending on your internet connection. Subsequent calls to this command
-will be much faster as the assets will have been downloaded.
-
-At this point you should have a fully running server, that you can access here:
-
-[http://localhost:8000](http://localhost:8000)
-
-If you wish to update it or if you turned off your computer and the server is
-down you can simply run vagrant up again. Like so:
-
-```bash
-cd ~/path/to/project/
-vagrant up
-```
-
-If you are not doing any development and are simply testing the environment your
-are done and do not need to proceed to the next step.
-
-**N.B.** You should run ```vagrant up``` once a day. So you have the latest
-  development work.
 
 ### Interacting with Docker
 
@@ -211,27 +280,13 @@ script _~/.bashrc_ or _~/.zshrc_, etc, so you don't need to type it ever again.
 
 **N.B.** If you ever start a new terminal / shell you'll have to enter that again.
 
-## Destroying the Environment
-
-Be *very careful* that you actually want to *destroy* the environment, before
-executing the command below.
-
-As destroying the environment means you'll have to *re-download absolutely
-everything*.
-
-```bash
-cd ~/path/to/project/
-vagrant destroy
-```
-
-## Starting Docker
+### Starting Docker
 
 Now that we can communicate with Docker, we can run Docker Compose to download
 the Docker Containers and run them in our VM (remember to first follow the
 directions in [Interacting with Docker](#interacting-with-docker)):
 
 ```bash
-cd ~/path/to/project/
 docker-compose up
 ```
 
@@ -244,7 +299,7 @@ Once the box is downloaded and setup you can access the site at:
 [http://localhost:8000](http://localhost:8000)
 
 
-## Stopping Docker
+### Stopping Docker
 
 When you no longer want to run Docker simply press *Ctrl-C* at the terminal where
 you ran the _vagrant up_ command.
@@ -252,16 +307,14 @@ you ran the _vagrant up_ command.
 Or you can run the stop command:
 
 ```bash
-cd ~/path/to/project/
 docker-compose stop
 ```
 
-## Updating Docker
+### Updating Docker
 
 To pull down the latest Docker images, run this command:
 
 ```bash
-cd ~/path/to/project/
 docker-compose pull
 ```
 
@@ -270,7 +323,6 @@ This doesn't automatically deploy the new images, just downloads them.
 If you want to run the latest images you must restart the containers:
 
 ```bash
-cd ~/path/to/project/
 docker-compose restart
 ```
 
