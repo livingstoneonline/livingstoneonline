@@ -7,7 +7,7 @@ IP=$(/usr/local/bin/VBoxManage guestproperty enumerate livingstone | grep '/Virt
 readonly host=$IP
 readonly user=$(echo $config | egrep -o 'User ([-_a-zA-Z0-9]*)' | sed 's/User //')
 readonly port=22
-readonly identity=$(echo $config | egrep -o 'IdentityFile "(.*)"' | sed 's/^IdentityFile "\(.*\)"$/\1/')
+readonly identity=$(echo $config | egrep -o 'IdentityFile "?(.*)"?' | sed 's/^IdentityFile "?\(.*\)"?$/\1/')
 
 echo "Installing Docker on Vagrant Box"
 echo "Host: $host"
