@@ -1,0 +1,33 @@
+#!/bin/bash
+# Generates secrets file with random passwords.
+# if not present.
+set -u
+set -e
+
+readonly DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+
+rand_pass() {
+    < /dev/urandom tr -dc _A-Za-z0-9 | head -c${1:-32}; echo;
+}
+
+main () {
+    cat <<EOF > $DIR/mariadb.env
+MYSQL_ROOT_USER=root
+MYSQL_ROOT_PASSWORD=$(rand_pass)
+EOF
+    cat <<EOF > $DIR/drupal.env
+DRUPAL_ADMIN_USER=admin
+DRUPAL_ADMIN_EMAIL=nigel.g.banks@gmail.com
+DRUPAL_ADMIN_PASSWORD=$(rand_pass)
+DRUPAL_DB_NAME=livingstone
+DRUPAL_DB_USER=drupal
+DRUPAL_DB_PASSWORD=$(rand_pass)
+EOF
+   cat <<EOF > $DIR/tomcat.env
+TOMCAT_ADMIN_USER=admin
+TOMCAT_ADMIN_PASSWORD=$(rand_pass)
+FEDORA_ADMIN_USER=fedoraAdmin
+FEDORA_ADMIN_PASSWORD=$(rand_pass)
+EOF
+}
+main
