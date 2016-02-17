@@ -1,2 +1,7 @@
 #!/bin/sh
+eval $(docker-machine env livingstone)
+docker exec drupal killall unison
+docker exec -d drupal sh -c "(unison -socket 5000 &);"
+sleep 3
 unison socket://localhost:5000//var/www/localhost/htdocs/sites sites -auto -batch
+docker exec drupal killall unison
