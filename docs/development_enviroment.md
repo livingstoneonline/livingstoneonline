@@ -377,7 +377,7 @@ These tools are provided by both [Macports](https://www.macports.org/) and
 
 ```base
 brew install unison
-brew install fswatcher
+brew install fswatch
 ```
 
 ### Macports
