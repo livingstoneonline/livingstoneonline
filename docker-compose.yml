@@ -1,16 +1,43 @@
+mariadb-volume:
+  image: livingstoneonline/mariadb
+  container_name: mariadb-volume
+  entrypoint: /bin/sh
+  command: /bin/true
+  volumes:
+    - /data/mysql:/var/lib/mysql
+
 mariadb:
   image: livingstoneonline/mariadb
   container_name: mariadb
   env_file: env/mariadb.env
+  volumes_from:
+    - mariadb-volume
+
+tomcat-volume:
+  image: livingstoneonline/gsearch
+  container_name: tomcat-volume
+  entrypoint: /bin/sh
+  command: /bin/true
+  volumes:
+    - /data/fedora:/opt/fedora/data
+    - /data/solr:/opt/solr/collection1/data
 
 tomcat:
-  image: livingstoneonline/fedora-sample-data
+  image: livingstoneonline/gsearch
   container_name: tomcat
   env_file: env/tomcat.env
-  ports:
-    - "8080:8080"
+  volumes_from:
+    - tomcat-volume
   links:
     - mariadb:mysql
+
+drupal-volume:
+  image: livingstoneonline/livingstone
+  container_name: drupal-volume
+  entrypoint: /bin/sh
+  command: /bin/true
+  volumes:
+    - /data/drupal:/var/www/localhost/htdocs/sites/default/files
 
 drupal:
   image: livingstoneonline/livingstone
@@ -18,6 +45,8 @@ drupal:
   env_file: env/drupal.env
   ports:
     - "80:80"
+  volumes_from:
+    - drupal-volume
   links:
     - mariadb:mysql
     - tomcat:fedora
