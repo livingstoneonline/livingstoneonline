@@ -3,6 +3,6 @@ echo "Docker Compose Up"
 eval $(docker-machine env livingstone)
 docker-compose pull
 docker-compose stop
-docker-compose rm
+docker-compose rm -f
 docker-compose up -d
 exit 0
