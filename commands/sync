@@ -5,5 +5,5 @@ readonly IP=$(/usr/local/bin/VBoxManage guestproperty enumerate livingstone | gr
 docker exec drupal killall unison
 docker exec -d drupal sh -c "(unison -socket 5000 &);"
 sleep 3
-unison socket://$IP:5000//var/www/localhost/htdocs/sites $DIR/../sites -auto -batch
+unison socket://$IP:5000//var/www/localhost/htdocs/sites $DIR/../sites -auto -batch -prefer socket://$IP:5000//var/www/localhost/htdocs/sites
 docker exec drupal killall unison

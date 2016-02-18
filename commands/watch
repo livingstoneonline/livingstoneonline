@@ -3,13 +3,16 @@
 readonly DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 readonly IP=$(/usr/local/bin/VBoxManage guestproperty enumerate livingstone | grep '/VirtualBox/GuestInfo/Net/1/V4/IP' | sed -n 's/^.*value: \([0-9\.]*\),.*$/\1/p')
 
+# Sync first before watching.
+$DIR/sync
+
 eval $(docker-machine env livingstone)
 docker exec drupal killall unison
 docker exec -d drupal sh -c "(unison -socket 5000 &);"
 sleep 2
 
 function sync() {
-    unison $DIR/../sites socket://$IP:5000//var/www/localhost/htdocs/sites -ignore 'Path .git' -auto -batch
+    unison $DIR/../sites socket://$IP:5000//var/www/localhost/htdocs/sites -ignore 'Path .git' -auto -batch -prefer socket://$IP:5000//var/www/localhost/htdocs/sites
     docker exec drupal drush cc all
 }
 
