@@ -1,0 +1,5 @@
+#!/bin/sh
+readonly DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+eval $(docker-machine env livingstone)
+eval $(cat $DIR/../env/mariadb.env)
+docker exec -ti mariadb sh -c "export TERM=xterm; mysql -u root --password=$MYSQL_ROOT_PASSWORD"

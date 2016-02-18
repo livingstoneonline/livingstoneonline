@@ -3,8 +3,6 @@ mariadb-volume:
   container_name: mariadb-volume
   entrypoint: /bin/sh
   command: /bin/true
-  volumes:
-    - /data/mysql:/var/lib/mysql
 
 mariadb:
   image: livingstoneonline/mariadb
@@ -18,9 +16,6 @@ tomcat-volume:
   container_name: tomcat-volume
   entrypoint: /bin/sh
   command: /bin/true
-  volumes:
-    - /data/fedora:/opt/fedora/data
-    - /data/solr:/opt/solr/collection1/data
 
 tomcat:
   image: livingstoneonline/gsearch
@@ -36,8 +31,6 @@ drupal-volume:
   container_name: drupal-volume
   entrypoint: /bin/sh
   command: /bin/true
-  volumes:
-    - /data/drupal:/var/www/localhost/htdocs/sites/default/files
 
 drupal:
   image: livingstoneonline/livingstone

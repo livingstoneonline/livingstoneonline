@@ -41,8 +41,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do | config |
   config.vm.box = settings['box']
   config.ssh.insert_key = true
   config.vm.network "private_network", type: "dhcp"
-  ports = load_settings 'ports'
-  map_ports config, ports
   config.vm.provision :docker_compose
   config.vm.provider :virtualbox do | provider |
     provider.name = "livingstone"
@@ -51,8 +49,10 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do | config |
   end
 
   config.trigger.after :up do
+    run "./env/generate-environment"
     run "./scripts/install-docker"
     run "./scripts/docker-compose-up"
+    run "./scripts/wait-for-http-access"
   end
 
   config.trigger.after :destroy do
