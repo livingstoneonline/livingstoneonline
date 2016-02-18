@@ -2,7 +2,7 @@
 eval $(docker-machine env livingstone)
 readonly IP=$(/usr/local/bin/VBoxManage guestproperty enumerate livingstone | grep '/VirtualBox/GuestInfo/Net/1/V4/IP' | sed -n 's/^.*value: \([0-9\.]*\),.*$/\1/p')
 main() {
-    docker run --rm --entrypoint /usr/local/bin/dockerize nigelgbanks/base -wait http://$IP:80 -timeout 15m &> ~/output.txt
+    docker run --rm --entrypoint /usr/local/bin/dockerize nigelgbanks/base -wait http://$IP:80 -timeout 15m
     if [ $? -eq 0 ]; then
         /usr/bin/osascript -e "open location \"http://$IP\""
     else
