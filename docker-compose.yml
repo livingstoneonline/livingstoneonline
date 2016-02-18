@@ -38,6 +38,7 @@ drupal:
   env_file: env/drupal.env
   ports:
     - "80:80"
+    - "5000:5000"
   volumes_from:
     - drupal-volume
   links:
