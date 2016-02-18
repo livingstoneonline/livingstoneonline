@@ -12,13 +12,13 @@ mariadb:
     - mariadb-volume
 
 tomcat-volume:
-  image: livingstoneonline/gsearch
+  image: livingstoneonline/fedora-sample-data
   container_name: tomcat-volume
   entrypoint: /bin/sh
   command: /bin/true
 
 tomcat:
-  image: livingstoneonline/gsearch
+  image: livingstoneonline/fedora-sample-data
   container_name: tomcat
   env_file: env/tomcat.env
   volumes_from:
