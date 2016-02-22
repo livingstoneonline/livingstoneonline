@@ -7,7 +7,7 @@ set -e
 readonly DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
 rand_pass() {
-    LC_CTYPE=C tr -dc _A-Za-z0-9 < /dev/urandom | head -c${1:-32}; echo;
+    LC_CTYPE=C tr -dc _A-Za-z0-9 < /dev/urandom | /usr/bin/head -c${1:-32}; echo;
 }
 
 
