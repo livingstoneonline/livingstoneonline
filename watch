@@ -1,2 +1,0 @@
-#!/bin/bash
-fswatch -o sites | xargs -n1 -I{} unison sites socket://localhost:5000//var/www/localhost/htdocs/sites -ignore 'Path .git' -auto -batch

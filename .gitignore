@@ -6,3 +6,4 @@ cache.properties
 vagrant/ports.yml
 vagrant/virtualbox.yml
 sites
+env/*.env

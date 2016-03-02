@@ -1,25 +1,46 @@
+mariadb-volume:
+  image: livingstoneonline/mariadb
+  container_name: mariadb-volume
+  entrypoint: /bin/sh
+  command: /bin/true
+
 mariadb:
   image: livingstoneonline/mariadb
   container_name: mariadb
-  environment:
-    MYSQL_ROOT_PASSWORD: 4KBPd3wsOXCGlToFAwAFyNjogsrp5V2N
+  env_file: env/mariadb.env
+  volumes_from:
+    - mariadb-volume
+
+tomcat-volume:
+  image: livingstoneonline/fedora-sample-data
+  container_name: tomcat-volume
+  entrypoint: /bin/sh
+  command: /bin/true
 
 tomcat:
   image: livingstoneonline/fedora-sample-data
   container_name: tomcat
-  environment:
-    FEDORA_ADMIN_PASSWORD: g8iR4T6PGDR7CAshNj6KWNXlH_lZVzlv
-  ports:
-    - "8080:8080"
+  env_file: env/tomcat.env
+  volumes_from:
+    - tomcat-volume
   links:
     - mariadb:mysql
+
+drupal-volume:
+  image: livingstoneonline/livingstone
+  container_name: drupal-volume
+  entrypoint: /bin/sh
+  command: /bin/true
 
 drupal:
   image: livingstoneonline/livingstone
   container_name: drupal
+  env_file: env/drupal.env
   ports:
     - "80:80"
     - "5000:5000"
+  volumes_from:
+    - drupal-volume
   links:
     - mariadb:mysql
     - tomcat:fedora
