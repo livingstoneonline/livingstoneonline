@@ -1,7 +1,7 @@
 version: "2"
 services:
   livingstone:
-    image: livingstoneonline/livingstoneonline:dev
+    image: livingstoneonline/livingstone:dev
     container_name: livingstone
     env_file: docker.env
     build:

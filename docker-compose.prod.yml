@@ -1,7 +1,7 @@
 version: "2"
 services:
   livingstone: 
-    image: livingstoneonline/livingstoneonline:prod
+    image: livingstoneonline/livingstone:prod
     container_name: livingstone
     restart: always
     env_file: docker.env
