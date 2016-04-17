@@ -1,13 +1,5 @@
 # Automated Build System
 
-## Table of Contents
-
-* [Introduction](#introduction)
-* [Docker Triggered Builds](#triggering-builds-from-docker-github-repositories)
-* [Source Code Triggered Builds](#triggering-builds-from-changes-to-source-code)
-* [Stage and Production](#stage-and-production)
-* [!Exception! (fedora-sample-data)](#exception)
-
 ## Introduction
 
 There are a two main tools at play for our automated build system.
@@ -27,31 +19,21 @@ them to either stage or production.
 Each of the Github repositories that correspond to Docker images (listed below),
 are set to trigger a build in Docker Hub the second any change is made to them:
 
-### MySQL Image
-
-1. Docker Hub:[mariadb](https://hub.docker.com/r/livingstoneonline/mysql) 
-   Github: [docker-mariadb](https://github.com/livingstoneonline/docker-mysql)
-
-### Tomcat Images
-
-1. Docker Hub:[tomcat](https://hub.docker.com/r/livingstoneonline/tomcat) 
-   Github: [docker-tomcat](https://github.com/livingstoneonline/docker-tomcat)
-
-### Drupal Image
-
-1. Docker Hub:[drupal](https://hub.docker.com/r/livingstoneonline/drupal) 
-   Github: [docker-drupal](https://github.com/livingstoneonline/docker-drupal)
-
-### Livingstone Image
-
-1. Docker Hub:[livingstone](https://hub.docker.com/r/livingstoneonline/livingstone) 
-   Github: [docker-livingstone](https://github.com/livingstoneonline/docker-livingstone)
+| Name        | Description                         | GitHub                                                  | Docker Hub                                             |
+|-------------|-------------------------------------|---------------------------------------------------------|--------------------------------------------------------|
+| Base        | Essentials                          | https://github.com/livingstoneonline/docker-base        | https://hub.docker.com/r/livingstoneonline/base        |
+| MySQL       | Database for Drupal / Fedora        | https://github.com/livingstoneonline/docker-base        | https://hub.docker.com/r/livingstoneonline/base        |
+| Tomcat      | Server for Fedora, etc              | https://github.com/livingstoneonline/docker-tomcat      | https://hub.docker.com/r/livingstoneonline/tomcat      |
+| Drupal      | Web Server                          | https://github.com/livingstoneonline/docker-drupal      | https://hub.docker.com/r/livingstoneonline/drupal      |
+| Livingstone | Livingstone Customization's         | https://github.com/livingstoneonline/docker-livingstone | https://hub.docker.com/r/livingstoneonline/livingstone |
+| FTP         | Hosts Deployment files              | https://github.com/livingstoneonline/docker-ftp         | https://hub.docker.com/r/livingstoneonline/ftp         |
+| Auto-Deploy | Auto deploy updates to stage & prod | https://github.com/livingstoneonline/docker-auto-deploy | https://hub.docker.com/r/livingstoneonline/auto-deploy |
 
 Since we have such a large number of nested Docker Images, we also propagate the
 trigger to all dependent images in the order of their dependencies so they are
-updated as well. So if *livingstoneonline/mysql* is changed, it will then cause
-*livingstoneonline/tomcat* to be rebuild which in turn will trigger
-*livingstone/drupal* to be built, and so on.
+updated as well. So if **livingstoneonline/mysql** is changed, it will then cause
+**livingstoneonline/tomcat** to be rebuild which in turn will trigger
+**livingstone/drupal** to be built, and so on.
 
 ## Triggering builds from changes to Source Code
 
@@ -62,7 +44,7 @@ if they are changed. In Particular:
 2. [livingstone_online_features](https://github.com/livingstoneonline/livingstone_online_features)
 
 So if one where to add a new CSS file to the theme, Docker Hub will start to
-build out a new *livingstoneonline/livingstone* Docker image.
+build out a new **livingstoneonline/livingstone** Docker image.
 
 ## Stage & Production
 
@@ -71,9 +53,9 @@ across all environments, so we can safely ignore them.
 
 The exception being
 [docker-livingstone](https://github.com/livingstoneonline/docker-livingstone),
-which has separate branches for each environment. This allows us to run
-different code locally, and to test out features and components on stage before
-deploying them to production.
+which only has one branch, but a different **Dockerfile** for each environment.
+This allows us to run different code locally, and to test out features and
+components on stage before deploying them to production.
 
 For each corresponding branch, a different Docker Image is build.
 

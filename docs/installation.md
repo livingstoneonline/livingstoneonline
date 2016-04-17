@@ -1,22 +1,5 @@
 # Installation
 
-## Table of Contents
-
-* [Introduction](#introduction)
-* [Requirements](#requirements)
-* [Installation](#installation)
-  * [Git and GitHub](#installation-git-and-github)
-  * [Docker and Virtualbox](#installation--docker-and-virtualbox)
-  * [Vagrant and Plugins](#installation--vagrant-and-plugins)
-  * [Configuring the Environment](#configuring-environment--vagrant-providers-)
-* [Launching the Environment](#launching-the-environment)
-* [Destroying the Environment](#destroying-the-environment)
-* [Starting Docker](#starting-docker)
-* [Stopping Docker](#stopping-docker)
-* [Updating Docker](#updating-docker)
-* [Sharing your Environment](#sharing-your-environment)
-* [Reference](#reference)
-
 ## Introduction
 
 This is a short guide on how to setup your local development environment on OSX.
@@ -40,7 +23,7 @@ have one.
 
 ![Create an Account](images/github-signup.png)
 
-## Installation: GitHub Desktop
+## GitHub Desktop
 
 Git is a distributed source control system, we use it to track all the system
 configuration as well as all the source code used to build
@@ -117,13 +100,13 @@ button as is shown below.
 re-install GitHub Desktop or Docker Tools or Vagrant to update the environment, from
 now on just start from [Launching the Environment](#launching-the-environment)
 
-## Installation: Docker and Virtualbox
+## Docker and Virtualbox
 
 To install both Docker and Virtualbox on OSX please
 download [Docker Toolbox](https://www.docker.com/docker-toolbox) and follow the
 [instructions provided](https://docs.docker.com/mac/step_one/).
 
-## Installation: Vagrant & plugins
+## Vagrant & plugins
 
 To install Vagrant, please select the
 relevant download for your operating system from the

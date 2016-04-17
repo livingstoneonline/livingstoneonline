@@ -3,7 +3,7 @@
 ## Development Environment
 
 Basically after setting you have
-[Setup your Development Environment!](installation.md), you should have some
+[Setup your Development Environment](installation.md), you should have some
 code locally in your *./code* folder. Here you can manipulate the code and perform
 commits, branches, pulls, and pushes, as is typical in a Git repository; making
 changes as you see fit to the *dev* branch of your repositories.
@@ -28,9 +28,8 @@ and comment on it before pushing it to stage.
 You'll first have to setup and account with
 [HashiCorp's Atlas](https://atlas.hashicorp.com/) (don't worry it's free).
 
-Follow the instructions here to login:
-
-[Login](https://atlas.hashicorp.com/help/vagrant/shares/create)
+Follow the instructions here to
+[login](https://atlas.hashicorp.com/help/vagrant/shares/create):
 
 After logging in, for convenience you can use the share command to share your
 development environment:
@@ -43,6 +42,7 @@ If successful it will printout a URL where anyone can access your development
 environment:
 
 > ==> default: Your Vagrant Share is running! Name: soaring-porpoise-9145
+
 > ==> default: URL: http://soaring-porpoise-9145.vagrantshare.com
 
 ## Dev Environment

@@ -12,7 +12,7 @@ _development_, _stage_, and _production_.
 Both the _stage_ and _production_ environments are hosted at
 [University of Maryland](http://www.umd.edu/). 
 
-* [Dev](livingstonestage.lib.umd.edu:81)
+* [Dev](http://livingstonestage.lib.umd.edu:81/)
 * [Stage](livingstonestage.lib.umd.edu)
 * [Production](livingstone.lib.umd.edu)
 
