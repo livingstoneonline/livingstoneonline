@@ -1,0 +1,27 @@
+[submodule "images/livingstone"]
+	path = images/livingstone
+	url = git@github.com:livingstoneonline/docker-livingstone.git
+[submodule "images/mysql"]
+	path = images/mysql
+	url = git@github.com:livingstoneonline/docker-mysql.git
+[submodule "images/base"]
+	path = images/base
+	url = git@github.com:livingstoneonline/docker-base.git
+[submodule "images/ftp"]
+	path = images/ftp
+	url = git@github.com:livingstoneonline/docker-ftp.git
+[submodule "images/auto-deploy"]
+	path = images/auto-deploy
+	url = git@github.com:livingstoneonline/docker-auto-deploy.git
+[submodule "images/drupal"]
+	path = images/drupal
+	url = git@github.com:livingstoneonline/docker-drupal.git
+[submodule "images/tomcat"]
+	path = images/tomcat
+	url = git@github.com:livingstoneonline/docker-tomcat.git
+[submodule "code/livingstone_online_features"]
+	path = code/livingstone_online_features
+	url = git@github.com:livingstoneonline/livingstone_online_features.git
+[submodule "code/livingstone_online_theme"]
+	path = code/livingstone_online_theme
+	url = git@github.com:livingstoneonline/livingstone_online_theme.git

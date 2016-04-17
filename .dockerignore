@@ -1,0 +1,12 @@
+*~
+.#*
+.DS_Store
+.travis.yml
+.git
+assets
+code
+commands
+docs
+plugins
+LICENSE
+README.md

@@ -1,0 +1,22 @@
+#!/bin/bash
+
+readonly ROOT="$( cd "$( dirname "${BASH_SOURCE[0]}" )/.." && pwd )"
+
+# Setup sub-modules
+git submodule update --init --recursive
+
+# Generate environment files
+$ROOT/commands/generate-env-files
+
+# Setup default docker-compose.yml file.
+if ! [ -e $ROOT/docker-compose.yml ]; then
+    cp $ROOT/docker-compose.dev.yml $ROOT/docker-compose.yml
+fi
+
+# Download assets
+$ROOT/commands/download-assets &
+
+# Download Dependencies
+$ROOT/commands/pull &
+
+wait

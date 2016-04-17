@@ -1,0 +1,24 @@
+version: "2"
+services:
+  livingstone: 
+    image: livingstoneonline/livingstoneonline:prod
+    container_name: livingstone
+    restart: always
+    env_file: docker.env
+    build:
+      context: ./images/livingstone
+      dockerfile: ./images/livingstone/Dockerfile.prod
+    environment:
+      - DRUPAL_SITE_DB_REPLACE_EXISTING=no
+      - DRUPAL_SITE_DB_IMPORT=no
+      - FEDORA_IMPORT_DATA=no
+      - FEDORA_REBUILD=no
+    volumes:
+      - "./assets/prod:/assets"
+      - "/data/drupal:/var/www/html/sites/default/files"
+      - "/data/fedora:/opt/fedora/data"
+      - "/data/mysql:/var/lib/mysql"
+      - "/data/solr:/opt/solr/collection1/data"
+      - "/opt/fedora/server/management/upload"
+    ports:
+      - "80:80"

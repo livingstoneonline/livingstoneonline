@@ -1,0 +1,40 @@
+#!/bin/bash
+
+readonly ROOT="$( cd "$( dirname "${BASH_SOURCE[0]}" )/.." && pwd )"
+readonly NAMESPACE=livingstoneonline
+readonly OPTS="$@"
+
+build_dependancy() {
+  local image=$1
+  local tag=$2
+  local context=$ROOT/images/$image
+  local name=$NAMESPACE/$image
+  if [ -n "$tag" ]; then
+      name="$name:$tag"
+  fi
+  docker build -t $name $context
+}
+
+build() {
+  local tag="$1"
+  docker-compose -f docker-compose.$tag.yml build
+}
+
+main() {
+  if hash docker-machine 2>/dev/null; then
+      eval $(docker-machine env default)
+  fi
+  # Dependencies
+  build_dependancy ftp
+  build_dependancy base
+  build_dependancy mysql
+  build_dependancy tomcat
+  build_dependancy drupal
+  # Main Image
+  build dev &
+  build stage &
+  build prod &
+  build latest &
+  wait
+}
+main

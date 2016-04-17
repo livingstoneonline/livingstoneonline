@@ -1,0 +1,42 @@
+#!/bin/bash
+# Generates secrets files with random passwords if not present.
+set -u
+set -e
+
+readonly ROOT="$( cd "$( dirname "${BASH_SOURCE[0]}" )/.." && pwd )"
+
+random_password() {
+  openssl rand -hex 32
+}
+
+generate_env_file() {
+  cat <<EOF > $ROOT/docker.env
+MYSQL_ROOT_USER=root
+MYSQL_ROOT_PASSWORD=$(random_password)
+DRUPAL_SITE_NAME=Livingstone Online
+DRUPAL_SITE_EMAIL=kappaluppa2@gmail.com
+DRUPAL_SITE_LOCALE=en-us
+DRUPAL_SITE_ACCOUNT_NAME=admin
+DRUPAL_SITE_ACCOUNT_PASSWORD=$(random_password)
+DRUPAL_SITE_ACCOUNT_EMAIL=kappaluppa2@gmail.com
+DRUPAL_SITE_DB_NAME=livingstone
+DRUPAL_SITE_DB_USER=drupal
+DRUPAL_SITE_DB_PASSWORD=$(random_password)
+DRUPAL_SITE_DB_REPLACE_EXISTING=no
+DRUPAL_SITE_DB_IMPORT=no
+TOMCAT_ADMIN_USER=admin
+TOMCAT_ADMIN_PASSWORD=$(random_password)
+FEDORA_ADMIN_USER=fedoraAdmin
+FEDORA_ADMIN_PASSWORD=$(random_password)
+FEDORA_INTERNAL_PASSWORD=$(random_password)
+FEDORA_REBUILD=no
+FEDORA_IMPORT_DATA=no
+EOF
+}
+
+main () {
+  if ! [ -e $ROOT/docker.env ]; then
+      generate_env_file
+  fi
+}
+main "$@"

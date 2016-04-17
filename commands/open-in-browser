@@ -1,0 +1,3 @@
+#!/bin/bash
+readonly host=$(docker-machine env default | perl -ne 'print $1 if /tcp:\/\/([0-9.]+)/')
+osascript -e "open location \"http://$host\""

@@ -1,0 +1,11 @@
+#!/bin/bash
+set -e
+readonly ROOT="$( cd "$( dirname "${BASH_SOURCE[0]}" )/.." && pwd )"
+
+cd $ROOT
+
+if ! (vagrant plugin list | grep -o vagrant-managed-servers > /dev/null); then
+    vagrant plugin install plugins/vagrant-managed-servers-0.8.0.dev.gem
+fi
+vagrant up
+vagrant share --http 80

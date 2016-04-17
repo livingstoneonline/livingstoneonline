@@ -1,0 +1,16 @@
+#!/bin/bash
+
+set -e
+
+readonly ROOT="$( cd "$( dirname "${BASH_SOURCE[0]}" )/.." && pwd )"
+
+download() {
+  local env=$1
+  wget -v -nH --cut-dirs=1 -m ftp://anonymous@livingstone.lib.umd.edu/$env -P $ROOT/assets/$env
+  wait
+}
+
+download dev &
+download stage &
+download prod &
+wait

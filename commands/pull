@@ -1,0 +1,15 @@
+#!/bin/bash
+
+if hash docker-machine 2>/dev/null; then
+    eval $(docker-machine env default)
+fi
+
+docker pull livingstoneonline/ftp
+docker pull livingstoneonline/base
+docker pull livingstoneonline/mysql
+docker pull livingstoneonline/tomcat
+docker pull livingstoneonline/docker
+docker pull livingstoneonline/livingstoneonline:dev
+docker pull livingstoneonline/livingstoneonline:stage
+docker pull livingstoneonline/livingstoneonline:prod
+docker pull livingstoneonline/livingstoneonline:latest
