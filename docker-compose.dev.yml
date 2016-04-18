@@ -1,10 +1,10 @@
 version: "2"
 volumes:
-  - "fedora:/opt/fedora/data"
-  - "fedora-tmp:/opt/fedora/server/management/upload"
-  - "solr:/opt/solr/collection1/data"
-  - "mysql:/var/lib/mysql"
-  - "drupal:/var/www/html/sites/default/files"
+  fedora:
+  fedora-tmp:
+  solr:
+  mysql:
+  drupal:
 services:
   livingstone:
     image: livingstoneonline/livingstone:dev
@@ -22,11 +22,11 @@ services:
       - "./assets/dev:/assets"
       - "./code/livingstone_online_features:/var/www/html/sites/all/features"
       - "./code/livingstone_online_theme:/var/www/html/sites/all/themes/lo"
-      - "fedora"
-      - "fedora-temp"
-      - "solr"
-      - "mysql"
-      - "drupal"
+      - "fedora:/opt/fedora/data"
+      - "fedora-tmp:/opt/fedora/server/management/upload"
+      - "solr:/opt/solr/collection1/data"
+      - "mysql:/var/lib/mysql"
+      - "drupal:/var/www/html/sites/default/files"
     ports:
       - "80:80"
       - "8080:8080"
