@@ -10,7 +10,4 @@ download() {
   wait
 }
 
-download dev &
-download stage &
-download prod &
-wait
+download ${1:-dev}

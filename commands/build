@@ -17,7 +17,7 @@ build_dependancy() {
 
 build() {
   local tag="$1"
-  docker-compose -f docker-compose.$tag.yml build
+  docker-compose -f $ROOT/docker-compose.$tag.yml build
 }
 
 main() {
@@ -31,10 +31,6 @@ main() {
   build_dependancy tomcat
   build_dependancy drupal
   # Main Image
-  build dev &
-  build stage &
-  build prod &
-  build latest &
-  wait
+  build ${1:-dev}
 }
-main
+main "@"

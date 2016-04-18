@@ -8,8 +8,5 @@ docker pull livingstoneonline/ftp
 docker pull livingstoneonline/base
 docker pull livingstoneonline/mysql
 docker pull livingstoneonline/tomcat
-docker pull livingstoneonline/docker
-docker pull livingstoneonline/livingstoneonline:dev
-docker pull livingstoneonline/livingstoneonline:stage
-docker pull livingstoneonline/livingstoneonline:prod
-docker pull livingstoneonline/livingstoneonline:latest
+docker pull livingstoneonline/drupal
+docker pull livingstoneonline/livingstone:${1:-dev}
