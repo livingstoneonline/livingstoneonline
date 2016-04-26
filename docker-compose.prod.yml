@@ -7,7 +7,7 @@ services:
     env_file: docker.env
     build:
       context: ./images/livingstone
-      dockerfile: ./images/livingstone/Dockerfile.prod
+      dockerfile: Dockerfile.prod
     environment:
       - DRUPAL_SITE_DB_REPLACE_EXISTING=no
       - DRUPAL_SITE_DB_IMPORT=no

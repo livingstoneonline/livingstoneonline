@@ -33,4 +33,4 @@ main() {
   # Main Image
   build ${1:-dev}
 }
-main "@"
+main "$@"
