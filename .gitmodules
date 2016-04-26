@@ -25,3 +25,6 @@
 [submodule "code/livingstone_online_theme"]
 	path = code/livingstone_online_theme
 	url = git@github.com:livingstoneonline/livingstone_online_theme.git
+[submodule "code/livingstone_online_module"]
+	path = code/livingstone_online_module
+	url = git@github.com:livingstoneonline/livingstone_online_module.git
