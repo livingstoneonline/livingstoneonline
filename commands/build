@@ -25,8 +25,8 @@ main() {
       eval $(docker-machine env default)
   fi
   # Dependencies
-  build_dependancy ftp
   build_dependancy base
+  build_dependancy ftp
   build_dependancy mysql
   build_dependancy tomcat
   build_dependancy drupal
