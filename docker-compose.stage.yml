@@ -1,24 +1,33 @@
 version: "2"
+volumes:
+  fedora-tmp:
+  tomcat-tmp:
+  tomcat-log:
+  var-log:
+  tmp:
 services:
   livingstone:
     image: livingstoneonline/livingstone:stage
     container_name: livingstone
     restart: always
     env_file: docker.env
-    build:
-      context: ./images/livingstone
-      dockerfile: Dockerfile.stage
     environment:
       - DRUPAL_SITE_DB_REPLACE_EXISTING=no
-      - DRUPAL_SITE_DB_IMPORT=no
+      - DRUPAL_DB_IMPORT=no
       - FEDORA_IMPORT_DATA=no
       - FEDORA_REBUILD=no
+      - ENABLE_CRON=no
     volumes:
-      - "/data/drupal:/var/www/html/sites/default/files"
-      - "/data/fedora:/opt/fedora/data"
+      - "tomcat-log:/opt/tomcat/logs"
+      - "tomcat-tmp:/opt/tomcat/temp"
+      - "fedora-tmp:/opt/fedora/server/management/upload"
+      - "var-log:/var/log"
+      - "tmp:/tmp"
       - "/data/mysql:/var/lib/mysql"
+      - "/data/fedora:/opt/fedora/data"
       - "/data/solr:/opt/solr/collection1/data"
-      - "/opt/fedora/server/management/upload"
+      - "/data/drupal:/var/www/html/sites/default/files"
+      - "/data/drupal-solr:/opt/solr/drupal/data"
       - "./assets/stage:/assets"
     ports:
       - "80:80"

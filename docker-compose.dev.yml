@@ -1,32 +1,37 @@
 version: "2"
 volumes:
-  fedora:
-  fedora-tmp:
-  solr:
-  mysql:
   drupal:
+  fedora-tmp:
+  fedora:
+  mysql:
+  solr:
+  tmp:
+  tomcat-log:
+  tomcat-tmp:
+  var-log:
 services:
   livingstone:
     image: livingstoneonline/livingstone:dev
     container_name: livingstone
+    restart: always
     env_file: docker.env
-    build:
-      context: ./images/livingstone
-      dockerfile: Dockerfile.dev
     environment:
       - DRUPAL_SITE_DB_REPLACE_EXISTING=no
-      - DRUPAL_SITE_DB_IMPORT=yes
+      - DRUPAL_DB_IMPORT=yes
       - FEDORA_IMPORT_DATA=yes
-      - FEDORA_REBUILD=no
+      - FEDORA_REBUILD=yes
+      - ENABLE_CRON=no
     volumes:
       - "./assets/dev:/assets"
-      - "./code/livingstone_online_features:/var/www/html/sites/all/features"
-      - "./code/livingstone_online_theme:/var/www/html/sites/all/themes/lo"
-      - "fedora:/opt/fedora/data"
-      - "fedora-tmp:/opt/fedora/server/management/upload"
-      - "solr:/opt/solr/collection1/data"
-      - "mysql:/var/lib/mysql"
       - "drupal:/var/www/html/sites/default/files"
+      - "fedora-tmp:/opt/fedora/server/management/upload"
+      - "fedora:/opt/fedora/data"
+      - "mysql:/var/lib/mysql"
+      - "solr:/opt/solr/collection1/data"
+      - "tmp:/tmp"
+      - "tomcat-log:/opt/tomcat/logs"
+      - "tomcat-tmp:/opt/tomcat/temp"
+      - "var-log:/var/log"
     ports:
       - "80:80"
       - "8080:8080"
