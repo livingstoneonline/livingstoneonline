@@ -31,4 +31,3 @@ services:
       - "./assets/prod:/assets"
     ports:
       - "80:80"
-      - "8080:8080"
