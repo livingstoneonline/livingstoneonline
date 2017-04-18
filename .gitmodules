@@ -4,9 +4,6 @@
 [submodule "images/mysql"]
 	path = images/mysql
 	url = git@github.com:livingstoneonline/docker-mysql.git
-[submodule "images/base"]
-	path = images/base
-	url = git@github.com:livingstoneonline/docker-base.git
 [submodule "images/ftp"]
 	path = images/ftp
 	url = git@github.com:livingstoneonline/docker-ftp.git
@@ -28,3 +25,9 @@
 [submodule "code/livingstone_online_module"]
 	path = code/livingstone_online_module
 	url = git@github.com:livingstoneonline/livingstone_online_module.git
+[submodule "images/base-alpine"]
+	path = images/base-alpine
+	url = git@github.com:livingstoneonline/docker-base.git
+[submodule "images/base-ubuntu"]
+	path = images/base-ubuntu
+	url = git@github.com:livingstoneonline/docker-base.git

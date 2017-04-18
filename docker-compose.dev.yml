@@ -1,38 +1,72 @@
 version: "2"
 volumes:
-  drupal:
-  fedora-tmp:
-  fedora:
-  mysql:
-  solr:
-  tmp:
+  var-log:
   tomcat-log:
   tomcat-tmp:
-  var-log:
+  fedora:
+  fedora-tmp:
+  solr-fedora:
+  solr-drupal:
+  mysql:
+  mysql-files:
+  drupal:
+  drupal-tmp:
 services:
   livingstone:
     image: livingstoneonline/livingstone:dev
     container_name: livingstone
-    restart: always
     env_file: docker.env
     environment:
       - DRUPAL_SITE_DB_REPLACE_EXISTING=no
-      - DRUPAL_DB_IMPORT=yes
-      - FEDORA_IMPORT_DATA=yes
-      - FEDORA_REBUILD=yes
-      - ENABLE_CRON=no
+      - DRUPAL_SITE_DB_IMPORT=no
+      - DRUPAL_IMPORT_DATA=yes
+    depends_on:
+      - mysql
     volumes:
-      - "./assets/dev:/assets"
-      - "drupal:/var/www/html/sites/default/files"
-      - "fedora-tmp:/opt/fedora/server/management/upload"
-      - "fedora:/opt/fedora/data"
-      - "mysql:/var/lib/mysql"
-      - "solr:/opt/solr/collection1/data"
-      - "tmp:/tmp"
-      - "tomcat-log:/opt/tomcat/logs"
-      - "tomcat-tmp:/opt/tomcat/temp"
+      - "./assets:/assets"
+      - "./code/livingstone_online_module:/var/www/localhost/htdocs/sites/all/modules/custom/livingstone_online_module"
+      - "./code/livingstone_online_theme:/var/www/localhost/htdocs/sites/all/themes/livingstone_online_theme"
+      - "./code/LEAP-XSLT:/var/www/localhost/htdocs/sites/all/modules/custom/LEAP_XSLT"
+      - "./code/uuid_features:/var/www/localhost/htdocs/sites/all/modules/custom/uuid_features"
+      # User uploaded content.
+      - "drupal:/var/www/localhost/htdocs/sites/default/files"
+      # Preserve temp files used between start and stopping of the server.
+      - "drupal-tmp:/tmp"
+      # Apache logs
       - "var-log:/var/log"
+      # Fedora data read when calculating the space used for display in the
+      # Fedora import page.
+      - "fedora:/opt/fedora/data"
+      # MySQL files is used to import CSV files into the database quickly.
+      - "mysql-files:/var/lib/mysql-files"
     ports:
       - "80:80"
+  tomcat:
+    image: livingstoneonline/tomcat
+    container_name: tomcat
+    env_file: docker.env
+    environment:
+      - FEDORA_IMPORT_DATA=no
+      - FEDORA_REBUILD=no
+      - SOLR_IMPORT_DATA=no
+      - SOLR_REBUILD=no
+    depends_on:
+      - mysql
+    volumes:
+      - "tomcat-log:/opt/tomcat/logs"
+      - "tomcat-tmp:/opt/tomcat/temp"
+      - "fedora:/opt/fedora/data"
+      - "fedora-tmp:/opt/fedora/server/management/upload"
+      - "solr-fedora:/opt/solr/collection1/data"
+      - "solr-drupal:/opt/solr/drupal/data"
+    ports:
       - "8080:8080"
+  mysql:
+    image: livingstoneonline/mysql
+    container_name: mysql
+    env_file: docker.env
+    volumes:
+      - "mysql:/var/lib/mysql"
+      - "mysql-files:/var/lib/mysql-files"
+    ports:
       - "3306:3306"

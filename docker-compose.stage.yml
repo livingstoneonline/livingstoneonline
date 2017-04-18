@@ -1,34 +1,73 @@
 version: "2"
 volumes:
-  fedora-tmp:
-  tomcat-tmp:
-  tomcat-log:
   var-log:
-  tmp:
+  tomcat-log:
+  tomcat-tmp:
+  fedora:
+  fedora-tmp:
+  solr-fedora:
+  solr-drupal:
+  mysql:
+  mysql-files:
+  drupal:
+  drupal-tmp:
 services:
   livingstone:
-    image: livingstoneonline/livingstone:stage
+    image: livingstoneonline/livingstone:dev
     container_name: livingstone
     restart: always
     env_file: docker.env
     environment:
       - DRUPAL_SITE_DB_REPLACE_EXISTING=no
-      - DRUPAL_DB_IMPORT=no
+      - DRUPAL_SITE_DB_IMPORT=no
+    depends_on:
+      - mysql
+    volumes:
+      - "./code/livingstone_online_module:/var/www/localhost/htdocs/sites/all/modules/custom/livingstone_online_module"
+      - "./code/livingstone_online_theme:/var/www/localhost/htdocs/sites/all/themes/livingstone_online_theme"
+      - "./code/LEAP-XSLT:/var/www/localhost/htdocs/sites/all/modules/custom/LEAP_XSLT"
+      - "./code/uuid_features:/var/www/localhost/htdocs/sites/all/modules/custom/uuid_features"
+      # User uploaded content.
+      - "drupal:/var/www/localhost/htdocs/sites/default/files"
+      # Preserve temp files used between start and stopping of the server.
+      - "drupal-tmp:/tmp"
+      # Apache logs
+      - "var-log:/var/log"
+      # Fedora data read when calculating the space used for display in the
+      # Fedora import page.
+      - "fedora:/opt/fedora/data"
+      # MySQL files is used to import CSV files into the database quickly.
+      - "mysql-files:/var/lib/mysql-files"
+    ports:
+      - "80:80"
+  tomcat:
+    image: livingstoneonline/tomcat
+    container_name: tomcat
+    restart: always
+    env_file: docker.env
+    environment:
       - FEDORA_IMPORT_DATA=no
       - FEDORA_REBUILD=no
-      - ENABLE_CRON=no
+      - SOLR_IMPORT_DATA=no
+      - SOLR_REBUILD=no
+    depends_on:
+      - mysql
     volumes:
       - "tomcat-log:/opt/tomcat/logs"
       - "tomcat-tmp:/opt/tomcat/temp"
+      - "fedora:/opt/fedora/data"
       - "fedora-tmp:/opt/fedora/server/management/upload"
-      - "var-log:/var/log"
-      - "tmp:/tmp"
-      - "/data/mysql:/var/lib/mysql"
-      - "/data/fedora:/opt/fedora/data"
-      - "/data/solr:/opt/solr/collection1/data"
-      - "/data/drupal:/var/www/html/sites/default/files"
-      - "/data/drupal-solr:/opt/solr/drupal/data"
-      - "./assets/stage:/assets"
+      - "solr-fedora:/opt/solr/collection1/data"
+      - "solr-drupal:/opt/solr/drupal/data"
     ports:
-      - "80:80"
       - "8080:8080"
+  mysql:
+    image: livingstoneonline/mysql
+    container_name: mysql
+    restart: always
+    env_file: docker.env
+    volumes:
+      - "mysql:/var/lib/mysql"
+      - "mysql-files:/var/lib/mysql-files"
+    ports:
+      - "3306:3306"

@@ -18,10 +18,29 @@ build_dependancy() {
   docker build $build -t $name $context
 }
 
+build_ubuntu_base_images() {
+  build_dependancy base ubuntu base-ubuntu
+  build_dependancy ftp &
+  build_dependancy oracle-jdk &
+  wait
+  build_dependancy tomcat &
+}
+
+build_alpine_base_images() {
+  build_dependancy base alpine base-alpine
+  build_dependancy mysql &
+  build_dependancy drupal &
+  wait
+  build_dependancy livingstone ${1:-dev}
+}
+
 main() {
   if hash docker-machine 2>/dev/null; then
       eval $(docker-machine env default)
   fi
-  build_dependancy $@
+  # Dependencies
+  build_dependancy auto-deploy &
+  build_ubuntu_base_images &
+  build_alpine_base_images &
 }
 main "$@"
