@@ -2,5 +2,6 @@
 .#*
 .vagrant
 .DS_Store
+.idea
 docker.env
 docker-compose.yml
