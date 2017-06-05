@@ -16,15 +16,6 @@
 [submodule "images/tomcat"]
 	path = images/tomcat
 	url = git@github.com:livingstoneonline/docker-tomcat.git
-[submodule "code/livingstone_online_features"]
-	path = code/livingstone_online_features
-	url = git@github.com:livingstoneonline/livingstone_online_features.git
-[submodule "code/livingstone_online_theme"]
-	path = code/livingstone_online_theme
-	url = git@github.com:livingstoneonline/livingstone_online_theme.git
-[submodule "code/livingstone_online_module"]
-	path = code/livingstone_online_module
-	url = git@github.com:livingstoneonline/livingstone_online_module.git
 [submodule "images/base-alpine"]
 	path = images/base-alpine
 	url = git@github.com:livingstoneonline/docker-base.git
