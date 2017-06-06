@@ -22,3 +22,6 @@
 [submodule "images/base-ubuntu"]
 	path = images/base-ubuntu
 	url = git@github.com:livingstoneonline/docker-base.git
+[submodule "images/oracle-jdk"]
+	path = images/oracle-jdk
+	url = git@github.com:livingstoneonline/docker-oracle-jdk.git
