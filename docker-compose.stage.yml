@@ -27,7 +27,7 @@ services:
       - "./assets:/assets"
       - "./code/livingstone_online_module:/var/www/localhost/htdocs/sites/all/modules/custom/livingstone_online_module"
       - "./code/livingstone_online_theme:/var/www/localhost/htdocs/sites/all/themes/livingstone_online_theme"
-      - "./code/LEAP-XSLT:/var/www/localhost/htdocs/sites/all/modules/custom/LEAP_XSLT"
+      - "./code/LEAP-XSLT:/var/www/localhost/htdocs/sites/all/modules/custom/LEAP-XSLT"
       - "./code/uuid_features:/var/www/localhost/htdocs/sites/all/modules/custom/uuid_features"
       # User uploaded content.
       - "drupal:/var/www/localhost/htdocs/sites/default/files"
