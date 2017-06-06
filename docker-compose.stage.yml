@@ -20,7 +20,7 @@ services:
     environment:
       - DRUPAL_SITE_DB_REPLACE_EXISTING=no
       - DRUPAL_SITE_DB_IMPORT=no
-      - DRUPAL_IMPORT_DATA=yes
+      - DRUPAL_IMPORT_DATA=no
     depends_on:
       - mysql
     volumes:
