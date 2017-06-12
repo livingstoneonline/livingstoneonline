@@ -1,4 +1,4 @@
-version: "2"
+version: "3.2"
 volumes:
   var-log:
   tomcat-log:
@@ -20,7 +20,7 @@ services:
     environment:
       - DRUPAL_SITE_DB_REPLACE_EXISTING=no
       - DRUPAL_SITE_DB_IMPORT=no
-      - DRUPAL_IMPORT_DATA=no
+      - DRUPAL_IMPORT_DATA=yes
     depends_on:
       - mysql
     volumes:
