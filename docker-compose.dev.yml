@@ -23,11 +23,11 @@ services:
     depends_on:
       - mysql
     volumes:
-      - "./assets:/assets"
-      - "./code/livingstone_online_module:/var/www/localhost/htdocs/sites/all/modules/custom/livingstone_online_module"
-      - "./code/livingstone_online_theme:/var/www/localhost/htdocs/sites/all/themes/livingstone_online_theme"
-      - "./code/LEAP-XSLT:/var/www/localhost/htdocs/sites/all/modules/custom/LEAP-XSLT"
-      - "./code/uuid_features:/var/www/localhost/htdocs/sites/all/modules/custom/uuid_features"
+      - "./assets:/assets:delegated"
+      - "./code/livingstone_online_module:/var/www/localhost/htdocs/sites/all/modules/custom/livingstone_online_module:delegated"
+      - "./code/livingstone_online_theme:/var/www/localhost/htdocs/sites/all/themes/livingstone_online_theme:delegated"
+      - "./code/LEAP-XSLT:/var/www/localhost/htdocs/sites/all/modules/custom/LEAP-XSLT:delegated"
+      - "./code/uuid_features:/var/www/localhost/htdocs/sites/all/modules/custom/uuid_features:delegated"
       # User uploaded content.
       - "drupal:/var/www/localhost/htdocs/sites/default/files"
       # Preserve temp files used between start and stopping of the server.
