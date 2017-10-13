@@ -1,0 +1,8 @@
+#!/bin/bash
+set -e
+readonly ROOT="$( cd "$( dirname "${BASH_SOURCE[0]}" )/.." && pwd )"
+
+rsync -avz --blocking-io -e 'docker exec -i' $ROOT/assets rsync:/
+rsync -avz --blocking-io -e 'docker exec -i' $ROOT/code/livingstone_online_module rsync:/var/www/localhost/htdocs/sites/all/modules/custom
+rsync -avz --blocking-io -e 'docker exec -i' $ROOT/code/livingstone_online_theme rsync:/var/www/localhost/htdocs/sites/all/themes
+rsync -avz --blocking-io -e 'docker exec -i' $ROOT/code/LEAP-XSLT rsync:/var/www/localhost/htdocs/sites/all/modules/custom

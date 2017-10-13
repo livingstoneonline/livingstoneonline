@@ -12,22 +12,30 @@ volumes:
   drupal:
   drupal-tmp:
 services:
+  rsync:
+    container_name: rsync
+    image: livingstoneonline/rsync
+    volumes:
+      - /assets
+      - /var/www/localhost/htdocs/sites/all/modules/custom/livingstone_online_module
+      - /var/www/localhost/htdocs/sites/all/themes/livingstone_online_theme
+      - /var/www/localhost/htdocs/sites/all/modules/custom/LEAP-XSLT
   livingstone:
-    image: livingstoneonline/livingstone:dev
+    image: livingstoneonline/livingstone
     container_name: livingstone
     env_file: docker.env
     environment:
       - DRUPAL_SITE_DB_REPLACE_EXISTING=no
       - DRUPAL_SITE_DB_IMPORT=no
-      - DRUPAL_IMPORT_DATA=yes
+      - DRUPAL_IMPORT_DATA=no
     depends_on:
       - mysql
     volumes:
-      - "./assets:/assets:delegated"
-      - "./code/livingstone_online_module:/var/www/localhost/htdocs/sites/all/modules/custom/livingstone_online_module:delegated"
-      - "./code/livingstone_online_theme:/var/www/localhost/htdocs/sites/all/themes/livingstone_online_theme:delegated"
-      - "./code/LEAP-XSLT:/var/www/localhost/htdocs/sites/all/modules/custom/LEAP-XSLT:delegated"
-      - "./code/uuid_features:/var/www/localhost/htdocs/sites/all/modules/custom/uuid_features:delegated"
+      #- "./assets:/assets:delegated"
+      #- "./code/livingstone_online_module:/var/www/localhost/htdocs/sites/all/modules/custom/livingstone_online_module:delegated"
+      #- "./code/livingstone_online_theme:/var/www/localhost/htdocs/sites/all/themes/livingstone_online_theme:delegated"
+      #- "./code/LEAP-XSLT:/var/www/localhost/htdocs/sites/all/modules/custom/LEAP-XSLT:delegated"
+      #- "./code/uuid_features:/var/www/localhost/htdocs/sites/all/modules/custom/uuid_features:delegated"
       # User uploaded content.
       - "drupal:/var/www/localhost/htdocs/sites/default/files"
       # Preserve temp files used between start and stopping of the server.
@@ -39,6 +47,8 @@ services:
       - "fedora:/opt/fedora/data"
       # MySQL files is used to import CSV files into the database quickly.
       - "mysql-files:/var/lib/mysql-files"
+    volumes_from:
+      - rsync
     ports:
       - "80:80"
   tomcat:
