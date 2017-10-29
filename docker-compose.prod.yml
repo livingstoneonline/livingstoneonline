@@ -8,7 +8,7 @@ volumes:
   drupal-tmp:
 services:
   livingstone:
-    image: livingstoneonline/livingstone:dev
+    image: livingstoneonline/livingstone:prod
     container_name: livingstone
     restart: always
     env_file: docker.env
