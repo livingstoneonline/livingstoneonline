@@ -28,7 +28,7 @@ services:
       # Import files.
       - "./assets:/assets"
       # User uploaded content.
-      - "/data/drupal:/var/www/html/sites/default/files"
+      - "/data/drupal:/var/www/localhost/htdocs/sites/default/files"
       # Preserve temp files used between start and stopping of the server.
       - "drupal-tmp:/tmp"
       # Apache logs
