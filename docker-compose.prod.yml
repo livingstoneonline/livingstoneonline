@@ -20,8 +20,8 @@ services:
     environment:
       - DRUPAL_SITE_DB_REPLACE_EXISTING=no
       - DRUPAL_SITE_DB_IMPORT=no
-      - DRUPAL_IMPORT_DATA=yes
-      - DRUPAL_SITE_FEATURES_ENABLE=yes
+      - DRUPAL_SITE_FEATURES_ENABLE=no
+      - DRUPAL_IMPORT_DATA=no
     depends_on:
       - mysql
     logging:
@@ -30,10 +30,8 @@ services:
         max-size: 10m
         max-file: "3"
     volumes:
-      - "./assets:/assets"
-      - "./code/livingstone_online_module:/var/www/localhost/htdocs/sites/all/modules/custom/livingstone_online_module"
-      - "./code/livingstone_online_theme:/var/www/localhost/htdocs/sites/all/themes/livingstone_online_theme"
-      - "./code/LEAP-XSLT:/var/www/localhost/htdocs/sites/all/modules/custom/LEAP-XSLT"
+      # Do not mount assets, unless it's first time to start.
+      #- "./assets:/assets"
       # User uploaded content.
       - "drupal:/var/www/localhost/htdocs/sites/default/files"
       # Preserve temp files used between start and stopping of the server.
