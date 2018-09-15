@@ -41,6 +41,6 @@ main() {
   # Dependencies
   build_dependancy auto-deploy &
   build_ubuntu_base_images &
-  build_alpine_base_images &
+  build_alpine_base_images ${1:-dev} &
 }
 main "$@"
