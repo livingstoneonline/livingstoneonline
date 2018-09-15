@@ -19,7 +19,7 @@ build_dependancy() {
 }
 
 build_ubuntu_base_images() {
-  build_dependancy base ubuntu base-ubuntu
+  build_dependancy base-ubuntu
   build_dependancy ftp &
   build_dependancy oracle-jdk &
   wait
@@ -27,7 +27,7 @@ build_ubuntu_base_images() {
 }
 
 build_alpine_base_images() {
-  build_dependancy base alpine base-alpine
+  build_dependancy base-alpine
   build_dependancy mysql &
   build_dependancy drupal &
   wait
