@@ -9,12 +9,8 @@ providing a local development environment based on Docker.
 The work-flow for Livingstone Online is comprised of three environments:
 _development_, _stage_, and _production_.
 
-Both the _stage_ and _production_ environments are hosted at
-[University of Maryland](http://www.umd.edu/). 
-
-* [Dev](http://livingstonestage.lib.umd.edu:81/)
-* [Stage](livingstonestage.lib.umd.edu)
-* [Production](livingstone.lib.umd.edu)
+The _production_ environment is currently hosted on a commercial server provided by 
+[So You Start](https://www.soyoustart.com/us/). 
 
 As it currently stands, both of these boxes run *RHEL 7* and the software is
 deployed via Docker.
