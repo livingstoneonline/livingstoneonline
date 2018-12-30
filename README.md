@@ -12,7 +12,7 @@ _development_, _stage_, and _production_.
 The _production_ environment is currently hosted on a commercial server provided by 
 [So You Start](https://www.soyoustart.com/us/). 
 
-As it currently stands, both of these boxes run *RHEL 7* and the software is
+As it currently stands, this boxes run *RHEL 7* and the software is
 deployed via Docker.
 
 ## For Non-Developers
