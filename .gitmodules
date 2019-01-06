@@ -18,10 +18,10 @@
 	url = git@github.com:livingstoneonline/docker-tomcat.git
 [submodule "images/base-alpine"]
 	path = images/base-alpine
-	url = git@github.com:livingstoneonline/docker-base.git
+	url = git@github.com:livingstoneonline/docker-base-alpine.git
 [submodule "images/base-ubuntu"]
 	path = images/base-ubuntu
-	url = git@github.com:livingstoneonline/docker-base.git
+	url = git@github.com:livingstoneonline/docker-base-ubuntu.git
 [submodule "images/oracle-jdk"]
 	path = images/oracle-jdk
 	url = git@github.com:livingstoneonline/docker-oracle-jdk.git
