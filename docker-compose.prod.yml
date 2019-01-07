@@ -67,7 +67,7 @@ services:
     ports:
       - "8080:8080"
   mysql:
-    image: livingstoneonline/mysql
+    image: mariadb:10.4.1
     container_name: mysql
     restart: always
     env_file: docker.env
