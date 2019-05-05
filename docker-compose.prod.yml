@@ -39,7 +39,7 @@ services:
       # MySQL files is used to import CSV files into the database quickly.
       - "mysql-files:/var/lib/mysql-files"
     ports:
-      - "80:80"
+      - "80"
   tomcat:
     image: livingstoneonline/tomcat
     container_name: tomcat
@@ -79,3 +79,22 @@ services:
     volumes:
       - "/data/mysql:/var/lib/mysql"
       - "mysql-files:/var/lib/mysql-files"
+  letsencrypt:
+    image: linuxserver/letsencrypt
+    container_name: letsencrypt
+    cap_add:
+      - NET_ADMIN
+    environment:
+      - PUID=112
+      - PGID=1000
+      - TZ=America/Chicago
+      - URL=livingstoneonline.org
+      - SUBDOMAINS=www,
+      - VALIDATION=http
+      - STAGING=false
+    volumes:
+      - "/data/letsencrypt:/config"
+    ports:
+      - 443:443
+      - 80:80
+    restart: unless-stopped
